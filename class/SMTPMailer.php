@@ -60,6 +60,8 @@ Class SMTPMailer
             $this->local = $_SERVER['SERVER_NAME'];
         else
             $this->local = $_SERVER['SERVER_ADDR'];
+        if ($this->username)
+            $this->from = array($this->username, '');
         define("NL", "\r\n");
     }
  
@@ -156,13 +158,12 @@ Class SMTPMailer
     public function Send()
     {
         // Prepare data for sending
-        $this->preCheck();
+        $this->headers = $this->doHeaders();
         $user64 = base64_encode($this->username);
         $pass64 = base64_encode($this->password);
         $mailfrom = '<'.$this->from[0].'>';
         foreach(array_merge($this->to, $this->cc, $this->bcc) as $address)
             $mailto[] = '<'.$address[0].'>';  
-        $this->headers = $this->doHeaders();
 
         // Open server connection and run transfers
         $this->sock = fsockopen($this->hostname, $this->port, $enum, $estr, 30);
@@ -233,9 +234,10 @@ Class SMTPMailer
         exit();
     }
 
-    // Test if we have necessary data
-    private function preCheck()
+    // Do create headers after precheck
+    private function doHeaders($filedata = true)
     {
+        // Test if we have necessary data
         if (empty($this->username) || empty($this->password))
             exit('We need username and password for: <b>'.$this->server.'</b>');
         if (empty($this->from)) $this->from = array($this->username, '');
@@ -244,12 +246,7 @@ Class SMTPMailer
         if (strlen(trim($this->body)) < 3 && strlen(trim($this->text)) < 3)
             exit('We really need a message to send');
 
-        return;
-    }
-
-    // Do create headers
-    private function doHeaders($filedata = true)
-    {
+        // Create Headers
         $headerstring = '';
         $this->createHeaders($filedata);
         foreach($this->ahead as $val) {
@@ -259,12 +256,11 @@ Class SMTPMailer
         return rtrim($headerstring);
     }
 
-    // Headers part 1
+    // Headers
     private function createHeaders($filedata)
     {
         $this->ahead[] = 'Date: '.date('r');
         $this->ahead[] = 'To: '.$this->formatAddressList($this->to);
-        if (empty($this->from)) $this->from = array($this->username, '');
         $this->ahead[] = 'From: '.$this->formatAddress($this->from);
         if (!empty($this->cc)) {
             $this->ahead[] = 'Cc: '.$this->formatAddressList($this->cc);
