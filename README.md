@@ -3,7 +3,7 @@ This is a lightweight SMTP PHPMailer.<br>
 The PHP Class supports TLS, SSL and File Attachments in mail.<br>
 Simple, powerful and easy to use.
 
-###### Features:
+##### Features:
 * Sends mail using one SMTP Server like 'smtp.gmail.com'.
 * Auth login with username and password.
 * Uses security protocols TLS and SSL.
@@ -13,7 +13,7 @@ Simple, powerful and easy to use.
 * 8bit, 7bit, Binary or Quoted-Printable transfer encoding.
 * Logging of the transaction for debug.
 
-###### Email Headers:
+##### Email Headers:
 * From     - one email
 * Reply-To - multiple possible
 * To  - multiple possible
