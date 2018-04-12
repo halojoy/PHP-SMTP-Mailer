@@ -188,7 +188,8 @@ Class SMTPMailer
             $this->logreq('RCPT TO: '.$address, '250');
 
         $this->logreq('DATA', '354');
-        $this->logreq($this->headers, '250');
+        $this->log[] = htmlspecialchars($this->doHeaders(false));
+        $this->request($this->headers, '250');
 
         $this->logreq('QUIT', '221');
         fclose($this->sock);
@@ -237,7 +238,7 @@ Class SMTPMailer
     // Do create headers after precheck
     private function doHeaders($filedata = true)
     {
-        // Test if we have necessary data
+        // Precheck. Test if we have necessary data
         if (empty($this->username) || empty($this->password))
             exit('We need username and password for: <b>'.$this->server.'</b>');
         if (empty($this->from)) $this->from = array($this->username, '');
@@ -259,6 +260,7 @@ Class SMTPMailer
     // Headers
     private function createHeaders($filedata)
     {
+        $this->ahead = array();
         $this->ahead[] = 'Date: '.date('r');
         $this->ahead[] = 'To: '.$this->formatAddressList($this->to);
         $this->ahead[] = 'From: '.$this->formatAddress($this->from);
