@@ -21,10 +21,10 @@ Simple, powerful and easy to use.
 * Bcc - multiple possible
 
 ### Usage
-1. Begin with running **setup_config.php**.<br>
+1. Begin with running **setup_config.php**<br>
 This will store your server connection settings.
 
-2. After this you can try **example_minimal.php**.<br>
+2. After this you can try **example_minimal.php**<br>
 It is a basic example like this:
 ```php
 <?php
