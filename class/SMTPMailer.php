@@ -34,8 +34,8 @@ Class SMTPMailer
     public function __construct($server=false, $port=false, $secure=false)
     {
         // Setup basic configuration
-        if (file_exists('conf/config_smtp.php')) {
-            include 'conf/config_smtp.php';
+        if (file_exists( dirname(__FILE__) . '/conf/config_smtp.php')) {
+            include dirname(__FILE__) . '/conf/config_smtp.php';
             $this->server   = $cfg_server;
             $this->port     = $cfg_port;
             $this->secure   = $cfg_secure;
