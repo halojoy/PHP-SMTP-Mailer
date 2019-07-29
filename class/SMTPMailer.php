@@ -48,10 +48,11 @@ Class SMTPMailer
             $this->password = '';
         }
         if ($port   !== false) $this->port   = $port;
-        if ($secure !== false) $this->secure = strtolower($secure);
+        if ($secure !== false) $this->secure = $secure;
 
         // Define connection hostname and localhost
         $this->hostname = $this->server;
+        $this->secure = strtolower($this->secure);
         if ($this->secure == 'tls') $this->hostname = 'tcp://'.$this->server;
         if ($this->secure == 'ssl') $this->hostname = 'ssl://'.$this->server;
         if (!empty($_SERVER['HTTP_HOST']))
