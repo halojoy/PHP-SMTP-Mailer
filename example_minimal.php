@@ -1,16 +1,42 @@
 <?php
 
-require 'class/SMTPMailer.php';
-$mail = new SMTPMailer();
+require '/path/to/SMTPMailer.php';
 
-$mail->addTo('someaccount@hotmail.com');
+// Instantiation.
+$mail = new SMTPMailer;
 
-$mail->Subject('Mail message for you');
-$mail->Body(
-    '<h3>Mail message</h3>
-    This is a <b>html</b> message.<br>
-    Greetings!'
-);
+$mail->SMTPHost = 'mail.server.com';
+$mail->Port     = 465;
+$mail->SMTPSecure = 'SSL';
+$mail->Username = 'user@server.com';  // SMTP username.
+$mail->Password = 'password';         // SMTP password.
+$mail->transfer_encoding = '7bit';
 
-if ($mail->Send()) echo 'Mail sent successfully';
-else               echo 'Mail failure';
+$mail->setFrom('me@server.com');
+$mail->addAddress('someone@destination.com');
+$mail->addAddress('another@person.com');
+$mail->addCC('reply@my-server.com');
+$mail->addBCC('secret@invisible.com');
+
+$mail->Subject = 'Greetings';
+
+$mail->bodyHTML = <<<"HTML"
+	This is a test from {$mail->SMTPHost} on port {$mail->Port}
+	<br>
+	<b>Greetings!</b>
+	HTML;
+
+$mail->bodyPlain = <<<"PLAIN"
+	This is a test from {$mail->SMTPHost} on port {$mail->Port}.
+	Greetings!
+	PLAIN;
+
+// Attachments (use an array).
+$mail->addAttachment(att_path: ['/path/to/attachment.jpg'],
+                     att_encoding: 'base64',
+					           att_type: 'image/jpg',
+					);
+
+echo PHP_EOL;
+if ($mail->Send()) { echo 'Mail was sent successfully!'. PHP_EOL; }
+else               { echo 'Mail failure!!!'. PHP_EOL; }
