@@ -23,7 +23,7 @@ Simple, powerful and easy to use.
 
 ### Usage
 Set your config variables in your calling script.<br>
-Here is a basic example:
+Here's a basic example:
 ```php
 <?php
 
