@@ -36,7 +36,7 @@ $mail->Username = 'user@server.com';
 $mail->Password = 'password';
 
 $mail->setFrom('me@server.com');
-$mail->addAddress('someone@destonation.com');
+$mail->addAddress('someone@destination.com');
 
 $mail->Subject = 'Greetings';
 
