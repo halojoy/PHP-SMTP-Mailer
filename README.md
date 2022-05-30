@@ -29,12 +29,11 @@ Here is a basic example:
 
 require '/path/to/SMTPMailer.php';
 
-// Instantiation.
 $mail = new SMTPMailer;
 
 $mail->SMTPHost = 'mail.server.com';
-$mail->Username = 'user@server.com';  // SMTP username.
-$mail->Password = 'password';         // SMTP password.
+$mail->Username = 'user@server.com';
+$mail->Password = 'password';
 
 $mail->setFrom('me@server.com');
 $mail->addAddress('someone@destonation.com');
@@ -42,8 +41,7 @@ $mail->addAddress('someone@destonation.com');
 $mail->Subject = 'Greetings';
 
 $mail->bodyPlain = <<<"PLAIN"
-	This is a test from {$mail->SMTPHost} on port {$mail->Port}.
-	Greetings!
+	Hello!  This is a test.
 	PLAIN;
 
 echo PHP_EOL;
