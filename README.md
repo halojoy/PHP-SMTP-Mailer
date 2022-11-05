@@ -15,7 +15,7 @@ Simple, powerful and easy to use.
 * Logging of the transaction for debug.
 
 ##### Email Headers:
-* From     - one email
+* From     - one address
 * Reply-To - multiple possible
 * To  - multiple possible
 * Cc  - multiple possible
