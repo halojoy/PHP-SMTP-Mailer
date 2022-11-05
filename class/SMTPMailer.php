@@ -2,7 +2,7 @@
 /*************************************************************
  Description : PHP Class for sending SMTP Mail
  Orig Author : halojoy  https://github.com/halojoy/PHP-SMTP-Mailer
- Author      : s22_tech  https://github.com/s22_tech/PHP-SMTP-Mailer
+ Updated by  : s22_tech  https://github.com/s22_tech/PHP-SMTP-Mailer
  *************************************************************/
 
 Class SMTPMailer
@@ -134,14 +134,14 @@ Class SMTPMailer
 			$this->hostname = 'tcp://'.$this->SMTPHost;
 		}
 		if ($this->SMTPSecure === 'ssl') {
-		 $this->hostname = 'ssl://'.$this->SMTPHost;
+			$this->hostname = 'ssl://'.$this->SMTPHost;
 		}
-		echo 'SMTPHost: ' . $this->SMTPHost . PHP_EOL;
+		echo 'SMTPHost: ' . $this->SMTPHost   . PHP_EOL;
 		echo 'secure: '   . $this->SMTPSecure . PHP_EOL;
-		echo 'hostname: ' . $this->hostname . PHP_EOL;
-		echo 'port: '     . $this->Port . PHP_EOL;
+		echo 'hostname: ' . $this->hostname   . PHP_EOL;
+		echo 'port: '     . $this->Port       . PHP_EOL;
 
-		// Open server connection and run transfers.
+	  // Open server connection and run transfers.
 		$this->sock = fsockopen($this->hostname, $this->Port, $enum, $estr, 30);
 		if (!$this->sock) exit('Socket connection error: '.$this->hostname);
 		$this->log[] = 'CONNECTION: fsockopen('.$this->hostname.')';
@@ -159,8 +159,9 @@ Class SMTPMailer
 		$this->log_request($pass64, '235');
 
 		$this->log_request('MAIL FROM: '.$mailfrom, '250');
-		foreach ($mailto as $address)
+		foreach ($mailto as $address) {
 			$this->log_request('RCPT TO: '.$address, '250');
+		}
 
 		$this->log_request('DATA', '354');
 		$this->log[] = htmlspecialchars($this->do_headers(false));
@@ -344,7 +345,7 @@ Class SMTPMailer
 
   // Format email address (with name).
 	private function format_address($address) {
-        return ($address[1] == '') ? $address[0] : '"'.$address[1].'" <'.$address[0].'>';
+      return ($address[1] == '') ? $address[0] : '"'.$address[1].'" <'.$address[0].'>';
 	}
 
 
