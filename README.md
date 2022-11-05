@@ -44,6 +44,12 @@ $mail->bodyPlain = <<<"PLAIN"
 	Hello!  This is a test.
 	PLAIN;
 
+$mail->bodyHTML = <<<"HTML"
+	This is a test from {$mail->SMTPHost} on port {$mail->Port}
+	<br>
+	<b>Greetings!</b>
+	HTML;
+
 echo PHP_EOL;
 if ($mail->Send()) { echo 'Mail was sent successfully!'. PHP_EOL; }
 else               { echo 'Mail failure!!!'. PHP_EOL; }
